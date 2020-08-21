@@ -81,7 +81,17 @@ impl Player {
             self.up_velocity -= 0.1f32;
             Option::Some(())
         });
-        owner.set_rotation(Vector3::new(self.camera_rotation.x, self.camera_rotation.y, 0.0f32));
+        owner.set_rotation(Vector3::new(0.0f32, self.camera_rotation.y, 0.0f32));
+
+        unsafe {
+            if let Some(camera_rotation_node) = owner.get_node("CameraRotation") {
+                if let Some(camera_rotation_spatial) = camera_rotation_node.assume_safe().cast::<Spatial>() {
+                    camera_rotation_spatial.set_rotation(Vector3::new(-1.0f32 * self.camera_rotation.x, 0.0f32, 0.0f32));
+                }
+            }
+
+
+        }
 
         if self.up_velocity > 1.0f32 {
             self.up_velocity = 1.0f32;

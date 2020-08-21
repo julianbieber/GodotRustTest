@@ -15,13 +15,15 @@ script = ExtResource( 1 )
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )
 
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.989152, 0.146894, 0, -0.146894, 0.989152, 0, 1.71072, 5.16706 )
-environment = SubResource( 2 )
-
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = ExtResource( 2 )
 material/0 = null
 
-[node name="RayCast" type="RayCast" parent="."]
-transform = Transform( 1, 0, 0, 0, -0.116931, -0.99314, 0, 0.99314, -0.116931, 0, 1.22684, -1.46528 )
+[node name="CameraRotation" type="Spatial" parent="."]
+
+[node name="RayCast" type="RayCast" parent="CameraRotation"]
+transform = Transform( 10, 0, 0, 0, -1.62921e-06, -10, 0, 10, -1.62921e-06, 0, 0, 0 )
+
+[node name="Camera" type="Camera" parent="CameraRotation"]
+transform = Transform( 1, 0, 0, 0, 0.989152, 0.146894, 0, -0.146894, 0.989152, 0, 1.71072, 5.16706 )
+environment = SubResource( 2 )
