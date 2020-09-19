@@ -70,17 +70,15 @@ impl Player {
             movement_direction -= z;
         }
 
-
-        owner.move_and_collide(movement_direction, false, false, false).map(|collision| {
+        if let Some(_collision) = owner.move_and_collide(movement_direction, false, false, false) {
             self.up_velocity = 0.0f32;
             if Input::godot_singleton().is_action_pressed("jump") {
                 self.up_velocity = 1.0f32;
             }
-            ()
-        }).or_else(|| {
+        } else {
             self.up_velocity -= 0.1f32;
-            Option::Some(())
-        });
+        }
+
         owner.set_rotation(Vector3::new(0.0f32, self.camera_rotation.y, 0.0f32));
 
         unsafe {
